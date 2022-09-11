@@ -112,13 +112,13 @@ def artist_Retrieve_Song():
 
 
 
-def artist_Clear_Entire_List():
+def delete_Entire_Track_List():
     with open('Upcoming Track List.csv') as inp:
         data_in = inp.readlines()
     with open('Upcoming Track List.csv', 'w') as outfile:
         outfile.writelines(data_in[0])
 
-def artist_Clear_Specific_Song(song_to_remove):
+def delete_Specific_Song_Track_List(song_to_remove):
     with open('Upcoming Track List.csv') as inp:
         data_in = inp.readlines()
     with open('Upcoming Track List.csv', 'w') as outfile:
@@ -130,7 +130,7 @@ def artist_Clear_Specific_Song(song_to_remove):
     song_List_Bar_Chart()
 
 
-def create_Artist_and_Song_Dict():
+def read_Entire_Track_List():
     import os
 
     content = {}
@@ -142,10 +142,15 @@ def create_Artist_and_Song_Dict():
 
     return content
 
+def create_Entry_Track_List(artist, song):
+    import pandas as pd
 
-#customer_Select_Song()
-#artist_Retrieve_Song()
-#song_List_Bar_Chart()
-#artist_Clear_Entire_List()
-#artist_Clear_Specific_Song("Let It Roll.html")
-#create_Artist_and_Song_Dict()
+    dataframe = pd.read_csv("Upcoming Track List.csv")
+
+    if artist in dataframe.Artist.values and song in dataframe.Song.values:
+        dataframe.loc[(dataframe.Artist == artist) & (dataframe.Song == song),'Votes' ] += 1
+    else:
+        dataframe.loc[len(dataframe.index)] =[artist,song,1]
+
+    dataframe.to_csv("Upcoming Track List.csv",index=False)
+
