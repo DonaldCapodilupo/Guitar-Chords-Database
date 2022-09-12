@@ -15,9 +15,16 @@
     <div class="row">
         <div class="col-3"></div>
         <div class="col-6">
+
             <div class="row">
                 <h1 class="border-box-sizing">What Song Would You Like To Hear?</h1>
             </div>
+
+            {% if confirmation %}
+                <div class="row">
+                <h1>Your vote for {{ confirmation[0] }} - {{ confirmation[1] }} has been added!</h1>
+                </div>
+            {% endif %}
 
             <div class="row">
                 <label for="artist_list">Choose you favorite artist:</label>

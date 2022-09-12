@@ -5,6 +5,8 @@ app = Flask(__name__)
 
 @app.route('/Song-Dashboard', methods=['GET', 'POST'])
 def song_Dashboard():
+    from Backend import song_List_Bar_Chart
+    song_List_Bar_Chart()
     return render_template("Song-Dashboard.html")
 
 
@@ -15,14 +17,16 @@ def user_Add_Song():
         if request.form['submit_button'] == 'view_results':
             return redirect(url_for("song_Dashboard"))
         if request.form['submit_button'] == 'submit_song':
-            from Backend import read_Entire_Track_List,update_Song_List
+            from Backend import read_Entire_Track_List,create_Entry_Track_List
 
             song_data = read_Entire_Track_List()
+            print(request.form["artist_list"])
+            print(request.form["song_list"])
 
-            update_Song_List()
+            create_Entry_Track_List(request.form["artist_list"], request.form["song_list"])
 
 
-            return render_template("User-Vote.html", data=song_data,confirmation=True)
+            return render_template("User-Vote.html", data=song_data,confirmation=[request.form["artist_list"], request.form["song_list"]])
 
 
     else:

@@ -52,9 +52,10 @@ def song_List_Bar_Chart():
     plt.bar(chart_data["Song"].values, chart_data["Votes"].values)
     plt.title("Song Distribution")
     plt.xticks(rotation=70)
+    plt.subplots_adjust(bottom=0.55)
 
 
-    plt.savefig("Bar Graph.png")
+    plt.savefig("static/Images/Bar Graph.png")
     plt.show()
 
 
