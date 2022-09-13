@@ -21,26 +21,36 @@
 <form action="{{ url_for('song_Dashboard') }}" enctype=multipart/form-data method="POST">
     <div class="row">
         <div class="col-3"></div>
-         <div class="col-6">
-             <div class="row">
-                 <img src="../static/Images/Bar%20Graph.png" alt="" ></div> <!--onload="load()"-->
-             </div>
+        <div class="col-6">
+            <div class="row">
+                <img src="../static/Images/Bar%20Graph.png" alt="">
+            </div> <!--onload="load()"-->
+
             <div class="row">
                 {% for current_song in current_tracklist %}
+                    <div class="col-2">
 
-                    <button type="submit" name="submit_button" value="{{ current_song[0] }} - {{ current_song[1] }}"
-                            class="btn btn-primary btn-block mb-4">
-                        {{ current_song.split(",")[:-1]}}
-                    </button>
+                        <button type="submit" name="submit_button" value="{{ current_song.split(",")[:-1] }}"
+                                class="btn btn-primary btn-block mb-4">
+                            {{ current_song.split(",")[:-1] }}
+                        </button>
+                    </div>
                 {% endfor %}
 
             </div>
 
-         <div class="col-3"></div>
+            {% if song_information %}
+                <div class="row">
+                    {% include song_information %}
+
+                </div>
+            {% endif %}
 
 
-    </div>
+        </div>
 
+
+        <div class="col-3"></div>
 
 
 </body>
