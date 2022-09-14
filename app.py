@@ -8,14 +8,25 @@ def song_Dashboard():
     from Backend import song_List_Bar_Chart, artist_Retrieve_Song
     song_List_Bar_Chart()
     track_list = artist_Retrieve_Song()
-    if request.method == "POST" and request.form['submit_button'] != "Go Back":
-        song_information =request.form['submit_button'].replace("[","").replace("]","").replace("'","").split(",")
-        print(song_information)
-        song_to_play =  song_information[0] +"/" + song_information[1].lstrip() + ".html"
-        print(song_to_play)
-        return render_template("Song-Dashboard.html", current_tracklist=track_list, song_information=song_to_play)
-    else:
+    if request.method == "POST" :
+        if request.form['submit_button'] != "Go Back":
+            song_information =request.form['submit_button'].replace("[","").replace("]","").replace("'","").split(",")
+            song_to_play =  song_information[0] +"/" + song_information[1].lstrip() + ".html"
+            return render_template("Song-Dashboard.html", current_tracklist=track_list, song_information=song_to_play)
+    #elif request.form['submit_button'] == "Go Back":
+    #    return redirect(url_for("user_Add_Song"))
+    if request.method == "GET":
         return render_template("Song-Dashboard.html", current_tracklist=track_list)
+
+
+
+@app.route('/Song-Results', methods=['GET', 'POST'])
+def song_Results():
+    from Backend import song_List_Bar_Chart, artist_Retrieve_Song
+    song_List_Bar_Chart()
+    track_list = artist_Retrieve_Song()
+    if request.method == "GET":
+        return render_template("Song-Vote-Results.html", current_tracklist=track_list)
 
 
 @app.route('/', methods=['GET', 'POST'])
