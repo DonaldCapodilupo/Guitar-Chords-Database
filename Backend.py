@@ -1,47 +1,10 @@
 
 
-class ListDisplay:
-    def __init__(self, listToDisplay):
-        self.listToDisplay = listToDisplay
-
-    def displayList(self, addExit=True):
-        print("Which option would you like to choose")
-        s = 1  # This is the counter to display in the output string.
-        for i in self.listToDisplay:  # Loop through the menu options
-            print(str(s) + ") " + i)  # Display all of the items in the list as a menu
-            s += 1
-        if addExit:
-            print(str(s) + ") Exit" )
-            s += 1
-        userChoice = int(input(">"))  # Prompt the user to enter a number
-        # Reruns the prompt if the user enters a number that is to big
-        if userChoice == len(self.listToDisplay)+1:
-            exit()
-        while userChoice > len(self.listToDisplay):
-            print("Invalid data. Please enter a valid number")
-            print()
-            print("Which option would you like to choose")
-            s = 1  # This is the counter
-            for i in self.listToDisplay:  # Loop through the menu options
-                print(str(s) + ") " + i)  # Display all of the items in the list as a menu
-                s += 1
-            if addExit:
-                print(str(s) + ") Exit")
-                s += 1
-            userChoice = int(input(">"))
-            if userChoice == len(self.listToDisplay) + 1:
-                exit()
-        # Closes the program if the user selects "Exit"
-        # At some point I would like it to step back one function
-        if userChoice == (s - 1) and self.listToDisplay[-1] == "Exit":
-            print("Exiting")
-            exit()
-        # Converts the users numerical entry into the string version of the option selected.
-        userChoiceFINAL = self.listToDisplay[(int(userChoice) - 1)]
-        # Return the variable
-        return userChoiceFINAL
-
-
+def song_URL_to_list(song_url):
+    #Convert Delete Spongebob/Campfire Song.html into ("Spongebob","Campfire Song")
+    return_list = song_url.replace("Delete ","").replace(".html","").split("/")
+    print("Returning: " + return_list[0] + " " + return_list[1])
+    return return_list
 
 def song_List_Bar_Chart():
     import pandas as pd
@@ -120,12 +83,19 @@ def delete_Entire_Track_List():
         outfile.writelines(data_in[0])
 
 def delete_Specific_Song_Track_List(song_to_remove):
+    #Delete Spongebob/Campfire Song.html
+
+    artist_and_song_list = song_URL_to_list(song_to_remove)
+
+
     with open('Upcoming Track List.csv') as inp:
         data_in = inp.readlines()
     with open('Upcoming Track List.csv', 'w') as outfile:
 
         for row in data_in:
-           if song_to_remove not in row and row != "Song,Votes":
+            if artist_and_song_list[0] in row.split(",")[0] and artist_and_song_list[1] in row.split(",")[1]:
+                pass
+            else:
                outfile.writelines(row)
 
     song_List_Bar_Chart()
