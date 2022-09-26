@@ -8,7 +8,6 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 
-
 </head>
 <body>
 
@@ -37,21 +36,37 @@
         </div>
         <div class="col-3"></div>
     </div>
+
+
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            {% if song_information %}
+                <button onclick="pageScroll()">Scroll</button>
+                <div class="row">
+                    {% include song_information %}
+
+                </div>
+                <div class="row">
+
+                <button type="submit" name="submit_button" value="Delete {{ song_information }}"
+                                class="btn btn-primary btn-block mb-4">
+                            Delete {{ song_information }}
+                        </button>
+
+
+                </div>
+            {% endif %}</div>
+        <div class="col-4"></div>
+    </div>
+
+    <script>
+        function pageScroll() {
+            window.scrollBy(0, 5);
+            scrolldelay = setTimeout(pageScroll, 1);
+        }
+    </script>
 </form>
-
-<div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-        {% if song_information %}
-            <button onclick="pageScroll()">Scroll</button>
-            <div class="row">
-                {% include song_information %}
-
-            </div>
-        {% endif %}</div>
-    <div class="col-4"></div>
-</div>
-
 
 </body>
 </html>
