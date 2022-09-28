@@ -1,0 +1,13 @@
+body{
+    background: lightblue;
+}
+
+.title_div{
+    background: darkslategrey;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.confirmation_div{
+    background: gold;
+}
